@@ -1,0 +1,23 @@
+{
+  "user": "demo",
+  "appName": "happy-paws-dog-walking",
+  "prompt": "Build a landing page for a dog walking business called Happy Paws",
+  "summary": "A single static marketing landing page for Happy Paws, a neighborhood dog walking business. The site needs no per-request logic or persisted data — services, pricing, and testimonials are fixed marketing copy — so a static_site is the only primitive required. It's served fast off Render's CDN and can be updated by editing content in the repo, with a mailto/tel call-to-action replacing the need for a backend contact-form service.",
+  "createdAt": "2026-09-04T02:15:00.643Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "happy-paws-dog-walking",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "echo \"no build needed\"",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}
