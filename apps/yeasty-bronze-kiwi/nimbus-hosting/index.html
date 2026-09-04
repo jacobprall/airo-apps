@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimbus Hosting — Cloud hosting that just works.</title>
+<meta name="description" content="Blazing-fast, zero-hassle web hosting with 99.99% uptime, free SSL, NVMe SSD storage, and 24/7 expert support.">
+<style>
+  :root{
+    --bg:#0b0f1a;
+    --bg-alt:#10162a;
+    --card:#141b30;
+    --border:#232c48;
+    --text:#eef1fb;
+    --muted:#a6afc9;
+    --brand:#6ea8ff;
+    --brand2:#7ef0c9;
+    --accent-grad: linear-gradient(135deg,#6ea8ff 0%, #7ef0c9 100%);
+    --radius:16px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{line-height:1.15;margin:0 0 .5em;}
+  .eyebrow{
+    display:inline-block;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.75rem;
+    font-weight:700;
+    color:var(--brand2);
+    margin-bottom:.75em;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.4em;
+    padding:.85em 1.6em;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.98rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{
+    background:var(--accent-grad);
+    color:#06111a;
+    box-shadow:0 8px 24px rgba(110,168,255,.35);
+  }
+  .btn-primary:hover{box-shadow:0 12px 32px rgba(110,168,255,.5);}
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--border);
+    color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--brand);}
+  .btn-block{width:100%;}
+
+  /* NAV */
+  header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(11,15,26,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    max-width:1160px;
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:.5em;
+    font-weight:800;
+    font-size:1.2rem;
+    letter-spacing:-.02em;
+  }
+  .logo svg{flex-shrink:0;}
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:2em;
+    list-style:none;
+    margin:0;padding:0;
+  }
+  .nav-links a{
+    font-weight:600;
+    font-size:.95rem;
+    color:var(--muted);
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{display:flex;align-items:center;gap:1em;}
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+  }
+  .hamburger span{
+    width:24px;height:2px;background:var(--text);border-radius:2px;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    gap:1em;
+    padding:0 24px 24px;
+    border-bottom:1px solid var(--border);
+    background:var(--bg);
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-weight:600;color:var(--muted);padding:.4em 0;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:90px 0 70px;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(110,168,255,.18), transparent 45%),
+      radial-gradient(circle at 85% 0%, rgba(126,240,201,.14), transparent 40%);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 4.6vw, 3.4rem);
+    letter-spacing:-.02em;
+  }
+  .hero .accent{
+    background:var(--accent-grad);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{
+    font-size:1.15rem;
+    color:var(--muted);
+    max-width:520px;
+    margin-bottom:1.8em;
+  }
+  .hero-ctas{display:flex;gap:1em;flex-wrap:wrap;margin-bottom:1.6em;}
+  .hero-stats{
+    display:flex;
+    gap:2.2em;
+    margin-top:1.5em;
+    flex-wrap:wrap;
+  }
+  .hero-stats div strong{
+    display:block;
+    font-size:1.5rem;
+    font-weight:800;
+    color:var(--text);
+  }
+  .hero-stats div span{color:var(--muted);font-size:.85rem;}
+  .hero-media{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+  }
+  .hero-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;}
+  .hero-media figcaption{
+    margin:0;
+    padding:.6em 1em;
+    font-size:.72rem;
+    color:var(--muted);
+    background:var(--bg-alt);
+    border-top:1px solid var(--border);
+  }
+
+  section{padding:88px 0;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 3em;}
+  .section-head p{color:var(--muted);}
+
+  /* FEATURES */
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+  }
+  .feature-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px 24px;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .feature-card:hover{transform:translateY(-4px);border-color:var(--brand);}
+  .feature-icon{
+    width:52px;height:52px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--accent-grad);
+    font-size:1.5rem;
+    margin-bottom:1em;
+  }
+  .feature-card h3{font-size:1.1rem;}
+  .feature-card p{color:var(--muted);font-size:.95rem;margin:0;}
+
+  /* STRIP */
+  .strip{
+    background:var(--bg-alt);
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .strip-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:2px;
+  }
+  .strip-item{position:relative;}
+  .strip-item img{width:100%;height:220px;object-fit:cover;filter:brightness(.6);}
+  .strip-item figcaption{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:.5em .8em;
+    font-size:.68rem;
+    color:#d7dcee;
+    background:linear-gradient(to top, rgba(0,0,0,.75), transparent);
+  }
+
+  /* PRICING */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    align-items:stretch;
+  }
+  .plan{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .plan.popular{
+    border-color:var(--brand);
+    box-shadow:0 0 0 1px var(--brand), var(--shadow);
+    transform:scale(1.03);
+  }
+  .badge{
+    position:absolute;
+    top:-14px;left:50%;
+    transform:translateX(-50%);
+    background:var(--accent-grad);
+    color:#06111a;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:.4em 1em;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .plan h3{font-size:1.15rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-size:.85rem;}
+  .price{
+    font-size:2.6rem;
+    font-weight:800;
+    margin:.2em 0 .1em;
+  }
+  .price span{font-size:1rem;color:var(--muted);font-weight:600;}
+  .plan-features{
+    list-style:none;
+    padding:0;margin:1.5em 0 2em;
+    flex-grow:1;
+  }
+  .plan-features li{
+    padding:.5em 0;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:.95rem;
+    display:flex;
+    gap:.6em;
+    align-items:flex-start;
+  }
+  .plan-features li:first-child{border-top:none;}
+  .plan-features li svg{flex-shrink:0;margin-top:3px;}
+
+  /* TESTIMONIALS */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  .testi-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px 24px;
+  }
+  .testi-card p.quote{
+    font-size:1.02rem;
+    margin:0 0 1.2em;
+  }
+  .testi-card p.quote::before{content:"\201C";}
+  .testi-card p.quote::after{content:"\201D";}
+  .testi-author{display:flex;align-items:center;gap:.8em;}
+  .avatar{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--accent-grad);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;color:#06111a;
+  }
+  .testi-author strong{display:block;font-size:.92rem;}
+  .testi-author span{color:var(--muted);font-size:.82rem;}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto;}
+  .faq-item{
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:12px;
+    overflow:hidden;
+    background:var(--card);
+  }
+  .faq-q{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    color:var(--text);
+    font-size:1rem;
+    font-weight:700;
+    padding:20px 22px;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1em;
+  }
+  .faq-q .plus{
+    font-size:1.3rem;
+    color:var(--brand2);
+    transition:transform .2s ease;
+    flex-shrink:0;
+  }
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+  }
+  .faq-a p{
+    margin:0;
+    padding:0 22px 20px;
+    color:var(--muted);
+  }
+
+  /* FOOTER */
+  footer{
+    background:var(--bg-alt);
+    border-top:1px solid var(--border);
+    padding:60px 0 30px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:40px;
+    margin-bottom:40px;
+  }
+  .footer-brand .logo{margin-bottom:.8em;}
+  .footer-brand p{color:var(--muted);max-width:360px;}
+  .social-row{display:flex;gap:.8em;margin-top:1.2em;}
+  .social-row a{
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .social-row a:hover{border-color:var(--brand);transform:translateY(-2px);}
+  .newsletter h4{margin:0 0 .6em;font-size:1rem;}
+  .newsletter p{color:var(--muted);font-size:.9rem;margin-bottom:1em;}
+  .newsletter-form{display:flex;gap:.6em;flex-wrap:wrap;}
+  .newsletter-form input{
+    flex:1;
+    min-width:180px;
+    padding:.75em 1em;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    font-size:.9rem;
+  }
+  .newsletter-form input:focus{outline:2px solid var(--brand);}
+  .footer-bottom{
+    border-top:1px solid var(--border);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1em;
+    color:var(--muted);
+    font-size:.85rem;
+  }
+  .footer-bottom .credits{font-size:.72rem;line-height:1.8;max-width:600px;}
+
+  @media (max-width: 880px){
+    .nav-links, .nav-cta .btn-ghost{display:none;}
+    .hamburger{display:flex;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-media{order:-1;}
+    .feature-grid{grid-template-columns:repeat(2,1fr);}
+    .pricing-grid{grid-template-columns:1fr;}
+    .plan.popular{transform:none;}
+    .testi-grid{grid-template-columns:1fr;}
+    .strip-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width: 540px){
+    .feature-grid{grid-template-columns:1fr;}
+    section{padding:64px 0;}
+    .hero{padding:64px 0 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 18a4.5 4.5 0 0 1-.4-8.98A5.5 5.5 0 0 1 17.2 8.1 4 4 0 0 1 17 16H7Z" fill="url(#g1)"/>
+        <defs><linearGradient id="g1" x1="2" y1="6" x2="20" y2="18"><stop stop-color="#6ea8ff"/><stop offset="1" stop-color="#7ef0c9"/></linearGradient></defs>
+      </svg>
+      Nimbus Hosting
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#pricing" class="btn btn-ghost">Log In</a>
+      <a href="#pricing" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing" class="btn btn-primary btn-block">Get Started</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">☁ Cloud hosting that just works</span>
+        <h1>Blazing-Fast Hosting, <span class="accent">Zero Hassle.</span></h1>
+        <p class="lead">Launch in seconds. Scale without limits. Nimbus Hosting delivers 99.99% uptime and real 24/7 support from humans who actually know servers — no upsells, no jargon, no downtime drama.</p>
+        <div class="hero-ctas">
+          <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+          <a href="#pricing" class="btn btn-ghost">View Plans</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>99.99%</strong><span>Uptime SLA</span></div>
+          <div><strong>24/7</strong><span>Human support</span></div>
+          <div><strong>10 min</strong><span>Avg. migration time</span></div>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="assets/cloud-server-room.jpg" alt="Rows of illuminated server equipment and networking infrastructure in a climate-controlled server room">
+        <figcaption>Photo: Michael_Hiraeth / Wikimedia Commons (CC0)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why Nimbus</span>
+        <h2>Everything you need. Nothing you don't.</h2>
+        <p>Built for small business owners and hobbyist developers who want speed and reliability without the runaround.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>NVMe SSD Storage</h3>
+          <p>Ultra-fast NVMe drives on every plan mean your pages load instantly, not eventually.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Free SSL &amp; Domain</h3>
+          <p>Every site ships secure by default with a free SSL certificate and domain to get you started.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>One-Click WordPress Install</h3>
+          <p>Spin up WordPress in a single click — no terminal, no config files, no headaches.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛟</div>
+          <h3>24/7 Expert Support</h3>
+          <p>Real engineers, day or night. We answer fast and fix things right the first time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-grid">
+      <figure class="strip-item">
+        <img src="assets/server-rack-datacenter.jpg" alt="Multiple tall server racks with blinking lights and equipment densely packed in a professional datacenter facility">
+        <figcaption>Photo: PiDatacenters / Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+      </figure>
+      <figure class="strip-item">
+        <img src="assets/fiber-optic-cables.jpg" alt="Close-up view of bundled fiber optic cables with colorful protective sheaths stacked together">
+        <figcaption>Photo: SwarmCheng / Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Simple Pricing</span>
+        <h2>Plans that scale with you</h2>
+        <p>No hidden fees. No surprise renewals. Cancel or upgrade anytime.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">$2.99<span>/mo</span></div>
+          <ul class="plan-features">
+            <li>✅ 1 website</li>
+            <li>✅ 10GB NVMe SSD</li>
+            <li>✅ 100GB bandwidth</li>
+            <li>✅ Free SSL</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-block">Choose Plan</a>
+        </div>
+        <div class="plan popular">
+          <span class="badge">Most Popular</span>
+          <h3>Business</h3>
+          <div class="price">$6.99<span>/mo</span></div>
+          <ul class="plan-features">
+            <li>✅ 10 websites</li>
+            <li>✅ 50GB NVMe SSD</li>
+            <li>✅ Unmetered bandwidth</li>
+            <li>✅ Free SSL</li>
+            <li>✅ Daily backups</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block">Choose Plan</a>
+        </div>
+        <div class="plan">
+          <h3>Pro</h3>
+          <div class="price">$12.99<span>/mo</span></div>
+          <ul class="plan-features">
+            <li>✅ Unlimited websites</li>
+            <li>✅ 200GB NVMe SSD</li>
+            <li>✅ Unmetered bandwidth</li>
+            <li>✅ Free SSL</li>
+            <li>✅ Daily backups</li>
+            <li>✅ Priority support</li>
+          </ul>
+          <a href="#" class="btn btn-ghost btn-block">Choose Plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Loved by builders</span>
+        <h2>Don't just take our word for it</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="quote">Migrated in under 10 minutes, uptime has been flawless.</p>
+          <div class="testi-author">
+            <div class="avatar">DR</div>
+            <div><strong>Dana R.</strong><span>Freelance Designer</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="quote">Support answered at 2am and fixed my issue instantly.</p>
+          <div class="testi-author">
+            <div class="avatar">MT</div>
+            <div><strong>Marcus T.</strong><span>Indie Hacker</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="quote">Finally a host that doesn't upsell me every five minutes.</p>
+          <div class="testi-author">
+            <div class="avatar">PK</div>
+            <div><strong>Priya K.</strong><span>Small Business Owner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions?</span>
+        <h2>Frequently asked questions</h2>
+        <p>Can't find what you need? Our support team is one click away, 24/7.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-q">Can I migrate my existing site for free? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes — our team handles free migrations within 24 hours, start to finish, with zero downtime.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What is your refund policy? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Every plan comes with a 30-day money-back guarantee, no questions asked.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What uptime do you guarantee? <span class="plus">+</span></button>
+          <div class="faq-a"><p>We back every plan with a 99.99% SLA-backed uptime guarantee.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you support WordPress? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Absolutely — one-click WordPress install is included on all plans, free of charge.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I upgrade later? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes, upgrade or downgrade anytime right from your dashboard — no calls, no hassle.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <figure class="hero-media" style="max-width:100%;">
+        <img src="assets/data-center-corridor.jpg" alt="Long, evenly-lit corridor lined with server equipment racks on both sides in a professional datacenter" style="aspect-ratio:21/6;">
+        <figcaption>Photo: Ser Amantio di Nicolao / Wikimedia Commons (CC BY-SA 4.0)</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 18a4.5 4.5 0 0 1-.4-8.98A5.5 5.5 0 0 1 17.2 8.1 4 4 0 0 1 17 16H7Z" fill="url(#g2)"/>
+            <defs><linearGradient id="g2" x1="2" y1="6" x2="20" y2="18"><stop stop-color="#6ea8ff"/><stop offset="1" stop-color="#7ef0c9"/></linearGradient></defs>
+          </svg>
+          Nimbus Hosting
+        </a>
+        <p>Cloud hosting that just works. Launch in seconds, scale without limits, sleep easy knowing your site is backed by real humans, 24/7.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="GitHub">🐙</a>
+          <a href="#" aria-label="LinkedIn">💼</a>
+          <a href="#" aria-label="Instagram">📸</a>
+        </div>
+      </div>
+      <div class="newsletter">
+        <h4>Stay in the loop</h4>
+        <p>Product updates, tips, and the occasional cloud pun. No spam, ever.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="you@example.com" aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Nimbus Hosting. All rights reserved.</span>
+      <span class="credits">Photos: PiDatacenters / Wikimedia Commons (CC BY-SA 4.0) · SwarmCheng / Wikimedia Commons (CC BY-SA 4.0) · Ser Amantio di Nicolao / Wikimedia Commons (CC BY-SA 4.0) · Michael_Hiraeth / Wikimedia Commons (CC0)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile hamburger menu
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    var ans = item.querySelector('.faq-a');
+    btn.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

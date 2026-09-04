@@ -1,0 +1,23 @@
+{
+  "user": "yeasty-bronze-kiwi",
+  "appName": "nimbus-hosting",
+  "prompt": "let's make a site advertising web hosting\n\nBuild this as a simple single-page static site:\n- One self-contained index.html with all CSS and JS inline.\n- No backend, server, or build step — static files only.\n- Inline all assets; keep it lightweight and responsive.",
+  "summary": "A single-page marketing site advertising \"Nimbus Hosting,\" a fictional web hosting company. Since the prompt explicitly calls for a static, backend-free, single-file site with no data persistence or server-side logic, the only primitive needed is a static_site. There's no per-request computation, no user accounts, and no data that outlives a request, so a web_service, postgres, or key_value store would be unjustified overhead.",
+  "createdAt": "2026-09-04T18:15:47.641Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "nimbus-hosting",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "true",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}

@@ -2,7 +2,7 @@
 #
 # One Blueprint holds every app the factory has built. A run appends its
 # app's resources here, and Render's Blueprint sync deploys them.
-# Apps: 8
+# Apps: 9
 
 services:
   # ── clumsy-plum-skunk/gpu-price-tracker ────────────────────
@@ -93,3 +93,14 @@ services:
     buildFilter:
       paths:
         - apps/scared-salmon-emu/windward-sailboats/**
+  # ── yeasty-bronze-kiwi/nimbus-hosting ────────────────────
+  - type: web
+    name: airo-yeasty-bronz-nimbus-hosting-web
+    runtime: static
+    rootDir: apps/yeasty-bronze-kiwi/nimbus-hosting
+    buildCommand: true
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/yeasty-bronze-kiwi/nimbus-hosting/**
