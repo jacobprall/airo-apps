@@ -1,0 +1,23 @@
+{
+  "user": "demo",
+  "appName": "happy-paws",
+  "prompt": "Build a landing page for a dog walking business called Happy Paws",
+  "summary": "A marketing landing page for Happy Paws, a neighborhood dog walking business. The goal is to convert visitors into booked walks/meet-and-greets, so the site is content-driven: services, pricing, service area, walker bios, testimonials, and a clear call-to-action. No user accounts, bookings storage, or dynamic data are needed for a launch landing page, so a single static site is the smallest primitive that fully serves the prompt — no web_service, postgres, or key_value is justified since nothing needs to run server-side logic or persist data beyond the page content itself.",
+  "createdAt": "2026-09-04T01:55:37.658Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "happy-paws-landing",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "echo 'Static site — no build step required'",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}

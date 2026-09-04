@@ -2,11 +2,19 @@
 #
 # One Blueprint holds every app the factory has built. A run appends its
 # app's resources here, and Render's Blueprint sync deploys them.
-# Apps: 0
+# Apps: 1
 
 services:
+  # ── demo/happy-paws ────────────────────
   - type: web
-    name: airo-placeholder
+    name: airo-demo-happy-paws-web
     runtime: static
-    buildCommand: echo "placeholder"
+    plan: starter
+    region: oregon
+    rootDir: apps/demo/happy-paws/.
+    buildCommand: echo 'Static site — no build step required'
     staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/demo/happy-paws/./**
