@@ -1,0 +1,23 @@
+{
+  "user": "scared-salmon-emu",
+  "appName": "windward-sailboats",
+  "prompt": "write a website to sell sailboats\n\nBuild this as a simple single-page static site:\n- One self-contained index.html with all CSS and JS inline.\n- No backend, server, or build step — static files only.\n- Inline all assets; keep it lightweight and responsive.",
+  "summary": "A single-page static storefront for a boutique sailboat dealer. The prompt explicitly calls for a simple, self-contained static site with no backend, server, or build step, so a lone static_site primitive is the right (and only) fit — there's no per-request logic or persistent mutable data that would justify a web_service, postgres, or key_value store. All boat listings are baked into the inlined HTML/CSS/JS as static content.",
+  "createdAt": "2026-09-04T04:19:16.582Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "windward-sailboats",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "true",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}

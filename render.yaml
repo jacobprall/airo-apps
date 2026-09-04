@@ -2,7 +2,7 @@
 #
 # One Blueprint holds every app the factory has built. A run appends its
 # app's resources here, and Render's Blueprint sync deploys them.
-# Apps: 2
+# Apps: 3
 
 services:
   # ── demo/happy-paws ────────────────────
@@ -27,3 +27,14 @@ services:
     buildFilter:
       paths:
         - apps/demo/happy-paws-dog-walking/**
+  # ── scared-salmon-emu/windward-sailboats ────────────────────
+  - type: web
+    name: airo-scared-salmo-windward-sailboats-web
+    runtime: static
+    rootDir: apps/scared-salmon-emu/windward-sailboats
+    buildCommand: true
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/scared-salmon-emu/windward-sailboats/**
