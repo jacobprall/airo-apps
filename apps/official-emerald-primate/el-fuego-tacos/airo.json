@@ -1,0 +1,23 @@
+{
+  "user": "official-emerald-primate",
+  "appName": "el-fuego-tacos",
+  "prompt": "let's make a site for a taco stand\n\nBuild this as a simple single-page static site:\n- One self-contained index.html with all CSS and JS inline.\n- No backend, server, or build step — static files only.\n- Inline all assets; keep it lightweight and responsive.",
+  "summary": "A single-page brochure site for El Fuego Taco Stand, a street-food taco cart. The prompt explicitly asks for a static, backend-free, single self-contained index.html, so the only primitive needed is a static_site — there's no data that must persist between requests (menu, hours, and location are fixed content baked into the page) and nothing needs server-side computation, so a web_service, postgres, or key_value store would be unjustified overhead.",
+  "createdAt": "2026-09-04T16:23:36.400Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "el-fuego-tacos-site",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "true",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}
