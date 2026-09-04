@@ -1,0 +1,23 @@
+{
+  "user": "clumsy-plum-skunk",
+  "appName": "gpu-price-tracker",
+  "prompt": "make me a website tracking GPU prices\n\nBuild this as a simple single-page static site:\n- One self-contained index.html with all CSS and JS inline.\n- No backend, server, or build step — static files only.\n- Inline all assets; keep it lightweight and responsive.",
+  "summary": "A single self-contained static page that lets shoppers eyeball current and historical street prices for popular desktop GPUs (RTX 5090/5080/4070, RX 7900 XTX/7800 XT, Arc B580, etc.) across a few major retailers, with sortable/filterable cards and a lightweight inline sparkline chart per card. Since the prompt explicitly rules out a backend, build step, or database, the only primitive needed is a static_site: all data is a hardcoded JS array of seed price snapshots baked into the single index.html, all styling is inline CSS, and all interactivity (search, sort, filter by brand/vendor, tiny canvas sparklines) is inline vanilla JS. No web_service, postgres, or key_value is justified because nothing needs to run per-request, persist writes, or survive beyond a page load — the \"tracking\" is illustrative seed data, not a live feed.",
+  "createdAt": "2026-09-04T15:47:52.632Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "gpu-price-tracker",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "true",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}

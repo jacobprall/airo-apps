@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPU Price Tracker — Keeping tabs so you don't have to</title>
+<meta name="description" content="Track current and historical street prices for popular desktop GPUs across major retailers.">
+<style>
+  :root{
+    --bg: #0a0c12;
+    --bg-alt: #10131c;
+    --card: #141824;
+    --card-border: #232838;
+    --text: #e7e9f0;
+    --text-dim: #9096a8;
+    --text-dimmer: #656c80;
+    --accent: #8b5cf6;
+    --accent-2: #22d3ee;
+    --good: #39d98a;
+    --bad: #ff5d6c;
+    --warn: #f5c451;
+    --nvidia: #76b900;
+    --amd: #ed1c24;
+    --intel: #00a3e0;
+    --radius: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 1200px 600px at 20% -10%, rgba(139,92,246,0.18), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 100% 0%, rgba(34,211,238,0.12), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+    line-height: 1.45;
+  }
+
+  a { color: var(--accent-2); }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HERO */
+  header.hero {
+    padding: 56px 0 32px;
+    border-bottom: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-copy { flex: 1 1 420px; min-width: 280px; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    background: rgba(34,211,238,0.1);
+    border: 1px solid rgba(34,211,238,0.3);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    margin: 0 0 14px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #fff 30%, var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-sub {
+    color: var(--text-dim);
+    font-size: 17px;
+    max-width: 560px;
+    margin: 0 0 22px;
+  }
+
+  .hero-images {
+    display: flex;
+    gap: 14px;
+    flex: 0 0 auto;
+  }
+
+  .hero-images figure {
+    margin: 0;
+    width: 150px;
+    text-align: center;
+  }
+
+  .hero-images img {
+    width: 150px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+    display: block;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+
+  .hero-images figcaption {
+    font-size: 10px;
+    color: var(--text-dimmer);
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+
+  /* STAT BAR */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+  }
+
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .stat .label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dimmer);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .stat .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stat .value span.accent { color: var(--accent-2); }
+
+  /* TOOLBAR */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 24px;
+    padding: 16px;
+    background: var(--bg-alt);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+  }
+
+  .search-box {
+    flex: 1 1 220px;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 11px 14px 11px 38px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .search-box input:focus { border-color: var(--accent); }
+
+  .search-box svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: var(--text-dimmer);
+  }
+
+  .chip-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    color: var(--text-dim);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .chip:hover { border-color: var(--accent); color: var(--text); }
+
+  .chip.active {
+    background: linear-gradient(120deg, var(--accent), #6d28d9);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .toggle-stock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    white-space: nowrap;
+  }
+
+  .toggle-stock input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+
+  select#sortSelect {
+    padding: 10px 34px 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%239096a8'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+  }
+
+  /* GRID */
+  main { padding-bottom: 60px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 820px) { .grid { grid-template-columns: repeat(2, 1fr); } .stats { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .hero-images { display:none; } }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(139,92,246,0.5);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .card .vendor {
+    font-size: 12.5px;
+    color: var(--text-dimmer);
+    margin-top: 2px;
+  }
+
+  .badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 6px;
+    color: #0a0c12;
+    white-space: nowrap;
+  }
+
+  .badge.nvidia { background: var(--nvidia); }
+  .badge.amd { background: var(--amd); color: #fff; }
+  .badge.intel { background: var(--intel); }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+
+  .price-now {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .price-msrp {
+    font-size: 14px;
+    color: var(--text-dimmer);
+    text-decoration: line-through;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 999px;
+    width: fit-content;
+  }
+
+  .pill.deal { background: rgba(57,217,138,0.14); color: var(--good); }
+  .pill.pricey { background: rgba(255,93,108,0.14); color: var(--bad); }
+  .pill.even { background: rgba(245,196,81,0.14); color: var(--warn); }
+
+  .spark-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-alt);
+    border-radius: 10px;
+    padding: 6px 4px;
+  }
+
+  canvas.sparkline { display: block; width: 100%; height: 44px; }
+
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+
+  .stock {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot.in { background: var(--good); box-shadow: 0 0 6px var(--good); }
+  .dot.out { background: var(--text-dimmer); }
+
+  .stock.in-txt { color: var(--good); }
+  .stock.out-txt { color: var(--text-dimmer); }
+
+  .year { color: var(--text-dimmer); }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 70px 20px;
+    color: var(--text-dim);
+  }
+
+  .empty-state h3 { font-size: 20px; color: var(--text); margin-bottom: 6px; }
+  .empty-state span { font-size: 34px; display: block; margin-bottom: 12px; }
+
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 30px 0 50px;
+    color: var(--text-dimmer);
+    font-size: 12.5px;
+  }
+
+  footer .disclaimer {
+    max-width: 640px;
+    margin-bottom: 14px;
+    color: var(--text-dim);
+  }
+
+  footer .credits { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  footer .credits span { white-space: nowrap; }
+
+  .results-count {
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: var(--text-dimmer);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">⚡ Updated by hand, when we remember</span>
+        <h1>GPU Price Tracker</h1>
+        <p class="hero-sub">Keeping an eye on graphics card prices so you don't have to refresh Newegg forty times a day.</p>
+      </div>
+      <div class="hero-images">
+        <figure>
+          <img src="assets/graphics-card-box.jpg" alt="Top view of an ATI Radeon HD 4770 graphics card showing its heatsink and components">
+          <figcaption>AMD / Wikimedia Commons</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/computer-gpu-card.jpg" alt="An AMD graphics card displayed against a plain background">
+          <figcaption>AMD / Wikimedia Commons</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="stats" id="statBar"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search GPUs (e.g. 7900, RTX, Arc)...">
+    </div>
+
+    <div class="chip-group" id="brandChips">
+      <div class="chip active" data-brand="All">All</div>
+      <div class="chip" data-brand="NVIDIA">NVIDIA</div>
+      <div class="chip" data-brand="AMD">AMD</div>
+      <div class="chip" data-brand="Intel">Intel</div>
+    </div>
+
+    <label class="toggle-stock">
+      <input type="checkbox" id="inStockToggle">
+      In stock only
+    </label>
+
+    <select id="sortSelect">
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="discount">Biggest Discount</option>
+      <option value="name">Name: A–Z</option>
+    </select>
+  </div>
+
+  <p class="results-count" id="resultsCount"></p>
+
+  <div class="grid" id="cardGrid"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">Sample data for demo purposes — not live pricing. Last manually updated Sept 2026.</p>
+    <div class="credits">
+      <span>Photo credit: "ATI_Radeon_HD_4770_Graphics_Card-top_view.jpg" — Advanced Micro Devices, Inc. (AMD), derivative work: Carlosdevivo (talk) / Wikimedia Commons</span>
+      <span>Photo credit: Advanced Micro Devices, Inc. (AMD) / Wikimedia Commons</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  const GPUS = [
+    { id: 'rtx5090', name: 'RTX 5090', brand: 'NVIDIA', msrp: 1999, currentPrice: 2149, vendor: 'Newegg', inStock: true, releaseYear: 2025, history: [1999, 2049, 2099, 2079, 2129, 2149] },
+    { id: 'rtx5080', name: 'RTX 5080', brand: 'NVIDIA', msrp: 999, currentPrice: 1079, vendor: 'Best Buy', inStock: true, releaseYear: 2025, history: [999, 1029, 1059, 1049, 1069, 1079] },
+    { id: 'rtx5070ti', name: 'RTX 5070 Ti', brand: 'NVIDIA', msrp: 749, currentPrice: 769, vendor: 'Amazon', inStock: true, releaseYear: 2025, history: [749, 759, 749, 765, 772, 769] },
+    { id: 'rtx5070', name: 'RTX 5070', brand: 'NVIDIA', msrp: 549, currentPrice: 599, vendor: 'Newegg', inStock: false, releaseYear: 2025, history: [549, 569, 579, 589, 605, 599] },
+    { id: 'rtx4060', name: 'RTX 4060', brand: 'NVIDIA', msrp: 299, currentPrice: 279, vendor: 'Micro Center', inStock: true, releaseYear: 2023, history: [299, 295, 289, 285, 282, 279] },
+    { id: 'rx7900xtx', name: 'RX 7900 XTX', brand: 'AMD', msrp: 999, currentPrice: 899, vendor: 'Amazon', inStock: true, releaseYear: 2022, history: [999, 969, 949, 929, 909, 899] },
+    { id: 'rx7900gre', name: 'RX 7900 GRE', brand: 'AMD', msrp: 549, currentPrice: 529, vendor: 'Newegg', inStock: true, releaseYear: 2023, history: [549, 545, 539, 535, 531, 529] },
+    { id: 'rx7800xt', name: 'RX 7800 XT', brand: 'AMD', msrp: 499, currentPrice: 459, vendor: 'Best Buy', inStock: true, releaseYear: 2023, history: [499, 489, 479, 469, 465, 459] },
+    { id: 'rx7600', name: 'RX 7600', brand: 'AMD', msrp: 269, currentPrice: 259, vendor: 'Micro Center', inStock: true, releaseYear: 2023, history: [269, 265, 263, 261, 260, 259] },
+    { id: 'rx9070xt', name: 'RX 9070 XT', brand: 'AMD', msrp: 599, currentPrice: 649, vendor: 'Newegg', inStock: false, releaseYear: 2025, history: [599, 615, 629, 639, 645, 649] },
+    { id: 'arcb580', name: 'Arc B580', brand: 'Intel', msrp: 249, currentPrice: 269, vendor: 'Amazon', inStock: true, releaseYear: 2024, history: [249, 255, 259, 263, 267, 269] },
+    { id: 'arca750', name: 'Arc A750', brand: 'Intel', msrp: 199, currentPrice: 179, vendor: 'Micro Center', inStock: true, releaseYear: 2022, history: [199, 195, 189, 185, 182, 179] },
+    { id: 'rtx4090', name: 'RTX 4090', brand: 'NVIDIA', msrp: 1599, currentPrice: 1899, vendor: 'Newegg', inStock: false, releaseYear: 2022, history: [1599, 1699, 1769, 1819, 1859, 1899] },
+    { id: 'rtx4070super', name: 'RTX 4070 Super', brand: 'NVIDIA', msrp: 599, currentPrice: 579, vendor: 'Best Buy', inStock: true, releaseYear: 2024, history: [599, 595, 589, 585, 581, 579] }
+  ];
+
+  const state = { search: '', brand: 'All', inStockOnly: false, sort: 'price-asc' };
+
+  const fmt = (n) => '$' + n.toLocaleString('en-US');
+  const discountPct = (g) => ((g.msrp - g.currentPrice) / g.msrp) * 100;
+
+  function drawSparkline(canvas, history, isGoodTrend) {
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth || 140;
+    const h = canvas.clientHeight || 44;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const min = Math.min(...history);
+    const max = Math.max(...history);
+    const range = (max - min) || 1;
+    const pad = 5;
+    const stepX = (w - pad * 2) / (history.length - 1);
+
+    const points = history.map((v, i) => {
+      const x = pad + i * stepX;
+      const y = pad + (1 - (v - min) / range) * (h - pad * 2);
+      return [x, y];
+    });
+
+    const lineColor = isGoodTrend ? '#39d98a' : '#ff5d6c';
+
+    // fill area under line
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, isGoodTrend ? 'rgba(57,217,138,0.28)' : 'rgba(255,93,108,0.28)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.beginPath();
+    ctx.moveTo(points[0][0], h - pad);
+    points.forEach(p => ctx.lineTo(p[0], p[1]));
+    ctx.lineTo(points[points.length - 1][0], h - pad);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    points.forEach((p, i) => i === 0 ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1]));
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    const last = points[points.length - 1];
+    ctx.beginPath();
+    ctx.arc(last[0], last[1], 3, 0, Math.PI * 2);
+    ctx.fillStyle = lineColor;
+    ctx.fill();
+  }
+
+  function cardTemplate(g) {
+    const pct = discountPct(g);
+    const brandClass = g.brand.toLowerCase();
+    let pillHtml = '';
+    if (pct > 0.4) {
+      pillHtml = '<span class="pill deal">▼ ' + pct.toFixed(0) + '% off MSRP</span>';
+    } else if (pct < -0.4) {
+      pillHtml = '<span class="pill pricey">▲ ' + Math.abs(pct).toFixed(0) + '% above MSRP</span>';
+    } else {
+      pillHtml = '<span class="pill even">At MSRP</span>';
+    }
+    const dealLabel = pct >= 8 ? 'Best Deal' : (pct <= -8 ? 'Still Pricey' : '');
+    const stockHtml = g.inStock
+      ? '<span class="stock in-txt"><span class="dot in"></span>In Stock</span>'
+      : '<span class="stock out-txt"><span class="dot out"></span>Sold Out</span>';
+
+    return (
+      '<div class="card" data-id="' + g.id + '">' +
+        '<div class="card-top">' +
+          '<div>' +
+            '<h3>' + g.name + (dealLabel ? ' <small style="font-weight:600;font-size:11px;color:var(--text-dimmer)">· ' + dealLabel + '</small>' : '') + '</h3>' +
+            '<div class="vendor">' + g.vendor + ' · <span class="year">' + g.releaseYear + '</span></div>' +
+          '</div>' +
+          '<span class="badge ' + brandClass + '">' + g.brand + '</span>' +
+        '</div>' +
+        '<div class="price-row">' +
+          '<span class="price-now">' + fmt(g.currentPrice) + '</span>' +
+          (g.currentPrice < g.msrp ? '<span class="price-msrp">' + fmt(g.msrp) + '</span>' : '<span class="price-msrp" style="text-decoration:none;color:var(--text-dimmer)">MSRP ' + fmt(g.msrp) + '</span>') +
+        '</div>' +
+        pillHtml +
+        '<div class="spark-wrap"><canvas class="sparkline" data-history="' + g.history.join(',') + '"></canvas></div>' +
+        '<div class="card-bottom">' +
+          stockHtml +
+          '<span>' + g.brand + ' · ' + g.vendor + '</span>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function getFiltered() {
+    let list = GPUS.filter(g => {
+      const matchesSearch = g.name.toLowerCase().includes(state.search.toLowerCase());
+      const matchesBrand = state.brand === 'All' || g.brand === state.brand;
+      const matchesStock = !state.inStockOnly || g.inStock;
+      return matchesSearch && matchesBrand && matchesStock;
+    });
+
+    switch (state.sort) {
+      case 'price-asc': list.sort((a, b) => a.currentPrice - b.currentPrice); break;
+      case 'price-desc': list.sort((a, b) => b.currentPrice - a.currentPrice); break;
+      case 'discount': list.sort((a, b) => discountPct(b) - discountPct(a)); break;
+      case 'name': list.sort((a, b) => a.name.localeCompare(b.name)); break;
+    }
+    return list;
+  }
+
+  function renderStats() {
+    const inStockList = GPUS.filter(g => g.inStock);
+    const cheapest = GPUS.reduce((min, g) => g.currentPrice < min.currentPrice ? g : min, GPUS[0]);
+    const avg = GPUS.reduce((sum, g) => sum + g.currentPrice, 0) / GPUS.length;
+
+    document.getElementById('statBar').innerHTML =
+      '<div class="stat"><div class="label">Cheapest Right Now</div><div class="value"><span class="accent">' + fmt(cheapest.currentPrice) + '</span> — ' + cheapest.name + '</div></div>' +
+      '<div class="stat"><div class="label">Average Price (all 14)</div><div class="value">' + fmt(Math.round(avg)) + '</div></div>' +
+      '<div class="stat"><div class="label">In Stock</div><div class="value"><span class="accent">' + inStockList.length + '</span> of ' + GPUS.length + ' tracked</div></div>';
+  }
+
+  function render() {
+    const list = getFiltered();
+    const grid = document.getElementById('cardGrid');
+    const countEl = document.getElementById('resultsCount');
+
+    if (list.length === 0) {
+      grid.innerHTML = '<div class="empty-state"><span>🫠</span><h3>Nothing matches that combo</h3><p>Try loosening the filters — or maybe that GPU just isn\\'t worth tracking.</p></div>';
+      countEl.textContent = 'Showing 0 of ' + GPUS.length + ' GPUs';
+      return;
+    }
+
+    countEl.textContent = 'Showing ' + list.length + ' of ' + GPUS.length + ' GPUs';
+    grid.innerHTML = list.map(cardTemplate).join('');
+
+    grid.querySelectorAll('canvas.sparkline').forEach(canvas => {
+      const history = canvas.dataset.history.split(',').map(Number);
+      const isGood = history[history.length - 1] <= history[0];
+      drawSparkline(canvas, history, isGood);
+    });
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    state.search = e.target.value;
+    render();
+  });
+
+  document.getElementById('brandChips').addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('#brandChips .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.brand = chip.dataset.brand;
+    render();
+  });
+
+  document.getElementById('inStockToggle').addEventListener('change', (e) => {
+    state.inStockOnly = e.target.checked;
+    render();
+  });
+
+  document.getElementById('sortSelect').addEventListener('change', (e) => {
+    state.sort = e.target.value;
+    render();
+  });
+
+  window.addEventListener('resize', render);
+
+  renderStats();
+  render();
+})();
+</script>
+
+</body>
+</html>
