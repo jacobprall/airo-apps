@@ -8,7 +8,5 @@ services:
   - type: web
     name: airo-placeholder
     runtime: static
-    plan: free
-    region: oregon
     buildCommand: echo "placeholder"
     staticPublishPath: .
