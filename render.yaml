@@ -49,6 +49,17 @@ services:
     buildFilter:
       paths:
         - apps/demo/happy-paws-dog-walking/**
+  # ── relaxed-gray-butterfly/domainpricing ────────────────────
+  - type: web
+    name: airo-relaxed-gray-domainpricing-web
+    runtime: static
+    rootDir: apps/relaxed-gray-butterfly/domainpricing
+    buildCommand: true
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/relaxed-gray-butterfly/domainpricing/**
   # ── scared-salmon-emu/windward-sailboats ────────────────────
   - type: web
     name: airo-scared-salmo-windward-sailboats-web
