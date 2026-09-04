@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact &amp; Adopt — Gopher Gallery</title>
+<meta name="description" content="Reserve your gopher and get answers to shipping and legality FAQs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Gopher Gallery</a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="care.html">Care Guide</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</header>
+
+<main>
+  <section class="page-banner">
+    <div class="container">
+      <h1>Reserve Your Gopher</h1>
+      <p>Fill out the form below and our warren team will burrow their way back to you within 2 business days.</p>
+    </div>
+  </section>
+
+  <section class="section contact-section">
+    <div class="container contact-grid">
+      <form id="reservationForm" class="reservation-form" novalidate>
+        <div class="form-row">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="Jamie Burrows">
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-row">
+          <label for="gopherChoice">Which gopher has your heart?</label>
+          <select id="gopherChoice" name="gopherChoice">
+            <option value="Chip">Chip the Pocket Gopher — $89.99</option>
+            <option value="Duchess">Duchess the Plains Gopher — $124.99</option>
+            <option value="Bruiser">Bruiser the Giant Gopher — $199.99</option>
+            <option value="Sprout">Sprout the Baby Botta's Gopher — $59.99</option>
+            <option value="Not sure yet">Not sure yet — surprise me</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="message">Anything we should know? (yard size, apartment rules, existing pets, tunnel ambitions)</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us about your burrow situation..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large">Submit Reservation</button>
+        <p class="form-note">Prefer email? Reach us directly at <a href="mailto:adopt@gophergallery.example">adopt@gophergallery.example</a>.</p>
+        <div id="formSuccess" class="form-success" hidden>
+          <strong>Burrow received!</strong> Your reservation has been logged. We'll be in touch faster than a gopher clears a flowerbed.
+        </div>
+      </form>
+
+      <div class="faq-panel">
+        <h2>Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Do gophers make good pets?</button>
+            <div class="accordion-content">
+              <p>Surprisingly, yes — low noise, natural landscapers, excellent tunnel vision (pun intended). They're independent, low-maintenance, and give you a legitimate excuse for that hole in the yard.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Is this a real gopher?</button>
+            <div class="accordion-content">
+              <p>We'll let you decide. What we can say for certain: every gopher listed is described with complete sincerity and at least one pun.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Do you ship gophers?</button>
+            <div class="accordion-content">
+              <p>We offer local, hand-delivered burrow-to-burrow transport within our service area. We do not ship gophers via post — they dig out of boxes, and frankly, so would you.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Is it legal to own a pet gopher?</button>
+            <div class="accordion-content">
+              <p>Regulations on owning wildlife-adjacent critters vary by location, so please check your local exotic pet ordinances before adopting. Consider this your official "check with your city hall, not just us" disclaimer.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Will a gopher destroy my lawn?</button>
+            <div class="accordion-content">
+              <p>"Destroy" is strong. "Enthusiastically renovate" is more accurate. We recommend a dedicated dig zone unless you're genuinely into avant-garde landscaping.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false">Can I return my gopher?</button>
+            <div class="accordion-content">
+              <p>We offer a 14-day "tunnel trial" adjustment period. After that, we're confident you'll be too burrow-attached to consider it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="logo" href="index.html">Gopher Gallery</a>
+      <p>Burrow into your heart. Since 2023.</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="shop.html">Shop</a>
+      <a href="care.html">Care Guide</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="photo-credit">Pocket gopher photo: Robin Holm / Wikimedia Commons (CC BY-SA 4.0)</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

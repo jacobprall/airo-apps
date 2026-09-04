@@ -2,7 +2,7 @@
 #
 # One Blueprint holds every app the factory has built. A run appends its
 # app's resources here, and Render's Blueprint sync deploys them.
-# Apps: 4
+# Apps: 5
 
 services:
   # ── clumsy-plum-skunk/gpu-price-tracker ────────────────────
@@ -16,6 +16,17 @@ services:
     buildFilter:
       paths:
         - apps/clumsy-plum-skunk/gpu-price-tracker/**
+  # ── demo/gopher-gallery ────────────────────
+  - type: web
+    name: airo-demo-gopher-gallery-web
+    runtime: static
+    rootDir: apps/demo/gopher-gallery
+    buildCommand: echo 'no build needed'
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/demo/gopher-gallery/**
   # ── demo/happy-paws ────────────────────
   - type: web
     name: airo-demo-happy-paws-web

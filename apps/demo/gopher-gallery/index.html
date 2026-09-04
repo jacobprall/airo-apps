@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gopher Gallery — Burrow Into Your Heart</title>
+<meta name="description" content="Gopher Gallery: boutique pet gophers for the discerning burrower. Meet Chip, Duchess, Bruiser and Sprout.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Gopher Gallery</a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="care.html">Care Guide</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg viewBox="0 0 800 300" preserveAspectRatio="none" class="hero-hills">
+        <path d="M0,300 L0,180 Q200,100 400,170 T800,140 L800,300 Z" fill="#6b8f3f"/>
+        <path d="M0,300 L0,230 Q220,170 420,220 T800,200 L800,300 Z" fill="#547332"/>
+      </svg>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">Boutique Pet Gophers, Est. 2023</span>
+        <h1>Burrow into<br>your heart.</h1>
+        <p>Hand-selected, tunnel-tested companion gophers for apartments, backyards, and everywhere in between. Low noise, high charm, unbeatable landscaping skills.</p>
+        <div class="hero-actions">
+          <a href="shop.html" class="btn btn-primary btn-large">Meet the Gophers</a>
+          <a href="about.html" class="btn btn-ghost btn-large">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 220 220" class="hero-gopher-svg">
+          <ellipse cx="110" cy="150" rx="70" ry="55" fill="#b98850"/>
+          <ellipse cx="110" cy="150" rx="45" ry="35" fill="#e9c9a0"/>
+          <circle cx="70" cy="95" r="42" fill="#b98850"/>
+          <circle cx="45" cy="65" r="14" fill="#b98850"/>
+          <circle cx="45" cy="65" r="7" fill="#e9c9a0"/>
+          <circle cx="90" cy="60" r="12" fill="#b98850"/>
+          <circle cx="90" cy="60" r="6" fill="#e9c9a0"/>
+          <circle cx="58" cy="92" r="5.5" fill="#2b1c12"/>
+          <circle cx="82" cy="88" r="5.5" fill="#2b1c12"/>
+          <ellipse cx="70" cy="110" rx="10" ry="7" fill="#e9c9a0"/>
+          <rect x="64" y="112" width="5" height="10" rx="1.5" fill="#fff"/>
+          <rect x="72" y="112" width="5" height="10" rx="1.5" fill="#fff"/>
+          <path d="M170,175 q35,-10 30,20" stroke="#b98850" stroke-width="10" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section featured">
+    <div class="container">
+      <h2 class="section-title">Featured Gopher of the Week</h2>
+      <div id="featuredGopher" class="featured-card"></div>
+    </div>
+  </section>
+
+  <section class="section why">
+    <div class="container">
+      <h2 class="section-title">Why a Gopher?</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">&#129323;</div>
+          <h3>Whisper Quiet</h3>
+          <p>No barking, no crowing — just the occasional satisfied chirp from deep underground.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#127793;</div>
+          <h3>Natural Landscapers</h3>
+          <p>Free aeration, free tilling, free surprise holes in the begonias. It's a whole service.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#128371;</div>
+          <h3>Excellent Tunnel Vision</h3>
+          <p>Laser-focused, deeply committed, and always digging toward their goals. Inspirational, really.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section testimonials">
+    <div class="container">
+      <h2 class="section-title">Happy Gopher Parents</h2>
+      <div id="testimonialCarousel" class="carousel"></div>
+    </div>
+  </section>
+
+  <section class="section newsletter">
+    <div class="container newsletter-inner">
+      <div>
+        <h2 class="section-title">Join the Warren</h2>
+        <p>Monthly digging tips, new arrivals, and questionable gopher puns straight to your inbox.</p>
+      </div>
+      <form class="newsletter-form" action="mailto:warren@gophergallery.example" method="post" enctype="text/plain">
+        <label for="newsletterEmail" class="sr-only">Email address</label>
+        <input type="email" id="newsletterEmail" name="email" placeholder="you@burrow.com" required>
+        <button type="submit" class="btn btn-primary">Dig In</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="logo" href="index.html">Gopher Gallery</a>
+      <p>Burrow into your heart. Since 2023.</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="shop.html">Shop</a>
+      <a href="care.html">Care Guide</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="photo-credit">Pocket gopher photo: Robin Holm / Wikimedia Commons (CC BY-SA 4.0)</p>
+  </div>
+</footer>
+
+<a href="contact.html" class="sticky-cta">Adopt Now</a>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

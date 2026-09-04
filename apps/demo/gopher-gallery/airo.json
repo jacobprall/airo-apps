@@ -1,0 +1,24 @@
+{
+  "user": "demo",
+  "appName": "gopher-gallery",
+  "prompt": "a static site for selling gophers",
+  "summary": "A whimsical brochure-style storefront selling pet gophers as quirky companion critters. Since the prompt explicitly calls for a static site and there's no need for logins, live inventory, or order processing beyond a simple contact/adopt CTA, the entire experience is served as pre-rendered HTML/CSS/JS with no backend or database — a static_site is the only primitive required.",
+  "createdAt": "2026-09-04T15:59:05.287Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "gopher-gallery",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "echo 'no build needed'",
+        "staticPublishPath": "."
+      }
+    ],
+    "databases": []
+  },
+  "notes": []
+}
