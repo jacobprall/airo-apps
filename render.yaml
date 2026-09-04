@@ -2,7 +2,7 @@
 #
 # One Blueprint holds every app the factory has built. A run appends its
 # app's resources here, and Render's Blueprint sync deploys them.
-# Apps: 7
+# Apps: 8
 
 services:
   # ── clumsy-plum-skunk/gpu-price-tracker ────────────────────
@@ -49,6 +49,17 @@ services:
     buildFilter:
       paths:
         - apps/demo/happy-paws-dog-walking/**
+  # ── fluttering-teal-ant/driftwood-surf-swap ────────────────────
+  - type: web
+    name: airo-fluttering-t-driftwood-surf-swap-web
+    runtime: static
+    rootDir: apps/fluttering-teal-ant/driftwood-surf-swap
+    buildCommand: true
+    staticPublishPath: .
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/fluttering-teal-ant/driftwood-surf-swap/**
   # ── official-emerald-primate/el-fuego-tacos ────────────────────
   - type: web
     name: airo-official-eme-el-fuego-tacos-web

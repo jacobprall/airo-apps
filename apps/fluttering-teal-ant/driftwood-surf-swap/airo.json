@@ -1,0 +1,23 @@
+{
+  "user": "fluttering-teal-ant",
+  "appName": "driftwood-surf-swap",
+  "prompt": "let's make a marketplace for used surf boards\n\nBuild this as a simple single-page static site:\n- One self-contained index.html with all CSS and JS inline.\n- No backend, server, or build step — static files only.\n- Inline all assets; keep it lightweight and responsive.",
+  "summary": "A single-page static marketplace for used surfboards. The prompt is explicit: no backend, no build step, one self-contained index.html with inline CSS/JS. Since there's no server-side logic or persistent data requirement beyond a hardcoded/seeded listing set baked into the page, a static_site is the only primitive that genuinely serves this — a web_service or postgres would add infrastructure the prompt directly asks not to have. Listings are treated as static seed content rendered client-side (e.g., from an inline JS array), with client-side filtering/search over that in-memory data.",
+  "createdAt": "2026-09-04T16:33:47.179Z",
+  "tiers": [
+    "static_site"
+  ],
+  "manifest": {
+    "services": [
+      {
+        "name": "driftwood-surf-swap",
+        "kind": "static_site",
+        "rootDir": ".",
+        "runtime": "static",
+        "buildCommand": "true",
+        "staticPublishPath": "."
+      }
+    ]
+  },
+  "notes": []
+}
