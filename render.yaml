@@ -4,5 +4,11 @@
 # app's resources here, and Render's Blueprint sync deploys them.
 # Apps: 0
 
-# No apps yet. The first run will add one.
-services: []
+services:
+  - type: web
+    name: airo-placeholder
+    runtime: static
+    plan: free
+    region: oregon
+    buildCommand: echo "placeholder"
+    staticPublishPath: .
